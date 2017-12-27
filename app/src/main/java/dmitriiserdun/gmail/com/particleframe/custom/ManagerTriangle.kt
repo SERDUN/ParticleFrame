@@ -28,34 +28,55 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
     }
 
     private fun generateTriangle(width: Float, height: Float) {
+
+        ///////////////////
         val widtDp = convertPixelToDp(width)
         val heightDp = convertDpToPixel(height)
 
-        val baseMarginLeft=10
-        val baseMarginTop=16
+        val baseMarginLeft = 2
+        val baseMarginTop = 16
 
-        val horizontalMarginDp = 2
-        val verticalMarginDp = 2
+        val horizontalMarginDp = 5
+        val verticalMarginDp = 5
         val sizeTriangleDp = 15
-        var widthVerticalItem = horizontalMarginDp * 2 * sizeTriangleDp
-        var heightVerticalItem = verticalMarginDp * 2 * sizeTriangleDp
+        var widthVerticalItem = horizontalMarginDp * 2 + sizeTriangleDp
+        var heightVerticalItem = verticalMarginDp * 2 + sizeTriangleDp
 
-        var countHorizontalItem = heightDp / heightVerticalItem
-        var countVerticalItem = widtDp / widthVerticalItem
+        var countHorizontalItem = width / widthVerticalItem
+        var countVerticalItem = height / heightVerticalItem
 
         var horizontalDisplacement = 2
         var verticalDisplacement = 2
+        //////////////////
 
-        for (i in 0..countHorizontalItem.toInt()*2) {
-            for (j in 0..countVerticalItem.toInt()*2) {
 
-                var x = convertDpToPixel(((i * (widthVerticalItem / horizontalDisplacement))+baseMarginLeft).toFloat())
-                var y = convertDpToPixel(((j * (heightVerticalItem / verticalDisplacement))+baseMarginTop).toFloat())
-                var size = convertDpToPixel(sizeTriangleDp.toFloat())
-                val randomColor = 0 + random.nextInt(3 - 0 + 1)
+        ///////////////////////
+        var centerX = width/2
+        var centerY = height/2
 
-                var triangle = Triangle(x, y, size, 30f, 1f, colors[randomColor])
-                triangles.add(triangle)
+
+        var innerRectangleWidth = convertDpToPixel(300f)
+        var innerRectangleHeight = convertDpToPixel(400f)
+
+
+        /////////////////////
+
+
+        for (i in 0..(countHorizontalItem.toInt()).toInt()) {
+            for (j in 0..(countVerticalItem.toInt()).toInt()) {
+
+                var x = convertDpToPixel(((i * (widthVerticalItem )) + baseMarginLeft).toFloat())
+                var y = convertDpToPixel(((j * (heightVerticalItem )) + baseMarginTop).toFloat())
+                /////////
+               if (!checkEntryPoint(x, y, centerX, centerY, innerRectangleWidth, innerRectangleHeight)) {
+
+                    ////////
+                    var size = convertDpToPixel(sizeTriangleDp.toFloat())
+                    val randomColor = 0 + random.nextInt(3 - 0 + 1)
+
+                    var triangle = Triangle(x, y, size, 30f, 1f, colors[randomColor])
+                    triangles.add(triangle)
+                }
 
             }
 
@@ -67,54 +88,6 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
 
     }
 
-//    private fun createVerticalArraysTriangle(deltaX: Float, sizeTriangle: Float, margin: Float, countHorizontalTriangles: Int, rnd: Random, positionYOne: Float, positionYTwo: Float, xCentral: Float) {
-//
-//        for (i in 0 until countHorizontalTriangles) {
-//            val randomRotate = 0 + rnd.nextInt(360 - 0 + 1)
-//            val randomTriangleSize = 10 + rnd.nextInt(15 - 10 + 1)
-//            val randomTriangleScale = 700 + rnd.nextInt(1100 - 700 + 1)
-//            val randomColor = 0 + rnd.nextInt(3 - 0 + 1)
-//
-//            val randDeltaX = 0 + rnd.nextInt((deltaX / 5 - 0 + 1).toInt())
-//
-//            var x: Float
-//            if (i % 2 == 0) {
-//                x = positionYOne - randDeltaX
-//            } else {
-//                x = positionYTwo - randDeltaX
-//            }
-//            x = x + xCentral
-//            val y = Tools.convertDpToPixel(((sizeTriangle + margin * 2) * i).toInt(), AliasApp.instance).toFloat()
-//            val size = Tools.convertDpToPixel((sizeTriangle + randomTriangleSize).toInt(), AliasApp.instance).toFloat()
-//            arrayList.add(Triangle(x, y, size, randomRotate.toFloat(), (randomTriangleScale / 1000).toFloat(), colors[randomColor]))
-//        }
-//    }
-
-
-    //    private fun createHorizontalArraysTriangle(deltaY: Float, sizeTriangle: Float, margin: Float, countTriangles: Int, rnd: Random, positionYOne: Float, positionYTwo: Float, yCentral: Float) {
-//
-//        for (i in 0 until countTriangles) {
-//            val randomRotate = 0 + rnd.nextInt(360 - 0 + 1)
-//            val randomTriangleSize = 10 + rnd.nextInt(15 - 10 + 1)
-//            val randomTriangleScale = 700 + rnd.nextInt(1100 - 700 + 1)
-//            val randomColor = 0 + rnd.nextInt(3 - 0 + 1)
-//
-//            val randDeltaY = 0 + rnd.nextInt((deltaY / 5 - 0 + 1).toInt())
-//
-//            var y: Float
-//            if (i % 2 == 0) {
-//                y = positionYOne + randDeltaY
-//            } else {
-//                y = positionYTwo + randDeltaY
-//            }
-//            y += yCentral
-//            val x = Tools.convertDpToPixel(((sizeTriangle + margin * 2) * i).toInt(), AliasApp.instance).toFloat()
-//            val size = Tools.convertDpToPixel((sizeTriangle + randomTriangleSize).toInt(), AliasApp.instance).toFloat()
-//            arrayList.add(Triangle(x, y, size, randomRotate.toFloat(), (randomTriangleScale / 1000).toFloat(), colors[randomColor]))
-//        }
-//    }
-//
-//
     inner class Triangle(var x: Float, var y: Float, var size: Float, var rotate: Float, var scale: Float, var color: String) {
         var deltaScale = 0.009
     }
@@ -127,4 +100,18 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
         return Tools.convertDpToPixel(dp, App.instance)
     }
 
+
+    private fun checkEntryPoint(x: Float, y: Float, xCenter: Float, yCenter: Float, width: Float, height: Float): Boolean {
+
+        var minX = xCenter - width / 2
+        var maxX = xCenter + width / 2
+
+        var minY = yCenter - height / 2
+        var maxY = yCenter + height / 2
+
+
+        return x > minX && x < maxX && y > minY && y < maxY
+
+
+    }
 }

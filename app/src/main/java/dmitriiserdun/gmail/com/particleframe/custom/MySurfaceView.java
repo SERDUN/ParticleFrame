@@ -44,7 +44,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
-        managerTriangle = new ManagerTriangle(height, width);
+        managerTriangle = new ManagerTriangle(width, height);
         drawThread = new DrawThread(getHolder(), getResources(), managerTriangle);
         drawThread.setRunning(true);
         drawThread.start();
