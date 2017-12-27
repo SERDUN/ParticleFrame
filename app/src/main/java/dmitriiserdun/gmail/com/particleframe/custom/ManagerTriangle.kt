@@ -30,9 +30,13 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
     private fun generateTriangle(width: Float, height: Float) {
         val widtDp = convertPixelToDp(width)
         val heightDp = convertDpToPixel(height)
-        val horizontalMarginDp = 3
-        val verticalMarginDp = 3
-        val sizeTriangleDp = 5
+
+        val baseMarginLeft=10
+        val baseMarginTop=16
+
+        val horizontalMarginDp = 2
+        val verticalMarginDp = 2
+        val sizeTriangleDp = 15
         var widthVerticalItem = horizontalMarginDp * 2 * sizeTriangleDp
         var heightVerticalItem = verticalMarginDp * 2 * sizeTriangleDp
 
@@ -42,11 +46,11 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
         var horizontalDisplacement = 2
         var verticalDisplacement = 2
 
-        for (i in 0..countHorizontalItem.toInt()) {
-            for (j in 0..countVerticalItem.toInt()) {
+        for (i in 0..countHorizontalItem.toInt()*2) {
+            for (j in 0..countVerticalItem.toInt()*2) {
 
-                var x = convertDpToPixel((i * (widthVerticalItem / horizontalDisplacement)).toFloat())
-                var y = convertDpToPixel((j * (heightVerticalItem / verticalDisplacement)).toFloat())
+                var x = convertDpToPixel(((i * (widthVerticalItem / horizontalDisplacement))+baseMarginLeft).toFloat())
+                var y = convertDpToPixel(((j * (heightVerticalItem / verticalDisplacement))+baseMarginTop).toFloat())
                 var size = convertDpToPixel(sizeTriangleDp.toFloat())
                 val randomColor = 0 + random.nextInt(3 - 0 + 1)
 
