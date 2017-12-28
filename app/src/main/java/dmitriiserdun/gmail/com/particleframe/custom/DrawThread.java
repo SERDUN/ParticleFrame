@@ -30,7 +30,6 @@ public class DrawThread extends Thread {
     public DrawThread(SurfaceHolder surfaceHolder, Resources resources, ManagerTriangle managerTriangle) {
         this.surfaceHolder = surfaceHolder;
         mPaint = new Paint();
-        mPaint.setColor(Color.BLUE);
         mPaint.setStrokeWidth(10);
         mPaint.setAntiAlias(true);
         this.managerTriangle = managerTriangle;
@@ -71,8 +70,7 @@ public class DrawThread extends Thread {
                             }
 
 
-                            int color = Color.parseColor(triangleModel.getColor());
-                            mPaint.setColor(color);
+                            mPaint.setColor(triangleModel.getColor());
                             drawTriangle(canvas, mPaint, triangleModel.getX(), triangleModel.getY(), triangleModel.getSize(), rotate + triangleModel.getRotate(), triangleModel.getScale());
                         }
 

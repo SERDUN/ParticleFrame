@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context="dmitriiserdun.gmail.com.particleframe.MainActivity">
 
+    <dmitriiserdun.gmail.com.particleframe.custom.MySurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

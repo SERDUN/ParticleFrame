@@ -1,5 +1,6 @@
 package com.steelkiwi.alias.ui.welcome.custom
 
+import android.graphics.Color
 import android.util.Log
 import dmitriiserdun.gmail.com.App
 import dmitriiserdun.gmail.com.particleframe.custom.Tools
@@ -34,7 +35,7 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
         val heightDp = convertDpToPixel(height)
 
         val baseMarginLeft = 2
-        val baseMarginTop = 16
+        val baseMarginTop = 2
 
         val horizontalMarginDp = 5
         val verticalMarginDp = 5
@@ -55,8 +56,8 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
         var centerY = height/2
 
 
-        var innerRectangleWidth = convertDpToPixel(300f)
-        var innerRectangleHeight = convertDpToPixel(400f)
+        var innerRectangleWidth = convertDpToPixel(width*0.8f)
+        var innerRectangleHeight = convertDpToPixel(height*0.9f)
 
 
         /////////////////////
@@ -69,12 +70,26 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
                 var y = convertDpToPixel(((j * (heightVerticalItem )) + baseMarginTop).toFloat())
                 /////////
                if (!checkEntryPoint(x, y, centerX, centerY, innerRectangleWidth, innerRectangleHeight)) {
-
                     ////////
+
+                   if(i%2==0){
+                       y+=convertDpToPixel(8f)
+                   }
+
+                   if(j%2==0){
+                       y+=convertDpToPixel(8f)
+                   }
+
+                   if(j%2==1){
+                       x+=convertDpToPixel(8f)
+                   }
+
+
                     var size = convertDpToPixel(sizeTriangleDp.toFloat())
                     val randomColor = 0 + random.nextInt(3 - 0 + 1)
+                   val color = Color.parseColor(colors[randomColor])
 
-                    var triangle = Triangle(x, y, size, 30f, 1f, colors[randomColor])
+                   var triangle = Triangle(x, y, size, 30f, 1f, color)
                     triangles.add(triangle)
                 }
 
@@ -88,7 +103,7 @@ class ManagerTriangle(widthContainer: Float, heightContainer: Float) {
 
     }
 
-    inner class Triangle(var x: Float, var y: Float, var size: Float, var rotate: Float, var scale: Float, var color: String) {
+    inner class Triangle(var x: Float, var y: Float, var size: Float, var rotate: Float, var scale: Float, var color: Int) {
         var deltaScale = 0.009
     }
 

@@ -3,13 +3,11 @@ package dmitriiserdun.gmail.com.particleframe;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import dmitriiserdun.gmail.com.particleframe.custom.MySurfaceView;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new MySurfaceView(this));
+        setContentView(R.layout.activity_main);
     }
 }
