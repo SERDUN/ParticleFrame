@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="dmitriiserdun.gmail.com.particleframe.MainActivity">
 
-    <dmitriiserdun.gmail.com.particleframe.custom.MySurfaceView
+    <dmitriiserdun.gmail.com.particleframe.realization.ParticleView
         android:id="@+id/sview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
