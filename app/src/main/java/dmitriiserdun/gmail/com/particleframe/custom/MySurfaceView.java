@@ -1,19 +1,21 @@
 package dmitriiserdun.gmail.com.particleframe.custom;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.steelkiwi.alias.ui.welcome.custom.ManagerTriangle;
+
+import dmitriiserdun.gmail.com.particleframe.DrawThread.DrawThread;
 
 /**
  * Created by dmitro on 27.12.17.
  */
 
 public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback {
-    private DrawThread drawThread;
+    DrawThread drawThread;
     ManagerTriangle managerTriangle = null;
 
     public MySurfaceView(Context context) {
@@ -33,7 +35,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 
     public void stop() {
-        drawThread.setRunning(false);
+//        drawThread.setRunning(false);
     }
 
     public MySurfaceView(Context context, AttributeSet attributeSet) {
@@ -44,21 +46,22 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
-        managerTriangle = new ManagerTriangle(width, height);
-        drawThread = new DrawThread(getHolder(), getResources(), managerTriangle);
-        drawThread.setRunning(true);
-        drawThread.start();
+        ManagerTriangle.INSTANCE.setSizeContainer(width, height);
 
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
+        Log.d("thread_log","CREATE");
+
 
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.d("thread_log","DESTROY");
+
         boolean retry = true;
         // завершаем работу потока
         drawThread.setRunning(false);
@@ -70,5 +73,37 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                 // если не получилось, то будем пытаться еще и еще
             }
         }
+
+
     }
+
+    public void pause() {
+        Log.d("thread_log","Pause start");
+
+
+        drawThread.setRunning(false);
+        try {
+            // Stop the thread (rejoin the main thread)
+            drawThread.join();
+        } catch (InterruptedException e) {
+        }
+
+        Log.d("thread_log","Pause stop");
+
+    }
+
+    public void resume() {
+        Log.d("thread_log","resume start");
+
+        drawThread = new DrawThread(getHolder(), getResources());
+
+
+        drawThread.setRunning(true);
+        drawThread.start();
+
+        Log.d("thread_log","resume stop");
+
+    }
+
+
 }
